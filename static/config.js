@@ -2,15 +2,15 @@ var config = {
   // 是否開啟 debug
   debug: true,
   // chat server 位置
-  domain: "https://chat.fangho.com",
+  domain: "https://atuim.gamania.com",
   // auth server 位置
-  authBase: "https://auth.imkit.io",
+  authBase: "https://atuim.gamania.com/auth",
   // 登入的 chat user id，與 token 擇一使用
   authClientId: "",
   // 取得 url 預覽內容的 api 網址
   urlPreviewApi: "https://chatkit.co/url",
   // chat server clientkey
-  clientKey: "fangho_imkit_0412_2018_001_clientkey",
+  clientKey: "gamania_imkit_1001_2018_001_clientkey",
   // chat user token，與 authClientId 擇一使用
   token: "",
   // S3 bucketName
