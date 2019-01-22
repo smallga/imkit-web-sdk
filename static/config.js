@@ -1,26 +1,28 @@
 var config = {
   // 是否開啟 debug
-  debug: true,
+  debug: false,
   // chat server 位置
-  domain: "https://atuim.gamania.com",
+  domain: 'https://chat.fangho.com',
   // auth server 位置
-  authBase: "https://atuim.gamania.com/auth",
+  authBase: 'https://auth.imkit.io',
   // 登入的 chat user id，與 token 擇一使用
-  authClientId: "",
+  authClientId: '',
   // 取得 url 預覽內容的 api 網址
-  urlPreviewApi: "https://chatkit.co/url",
+  urlPreviewApi: 'https://chatkit.co/url',
   // chat server clientkey
-  clientKey: "gamania_imkit_1001_2018_001_clientkey",
+  clientKey: 'fangho_imkit_0412_2018_001_clientkey',
   // chat user token，與 authClientId 擇一使用
-  token: "",
+  token: '',
   // S3 bucketName
-  bucketName: "chatserver-upload",
+  bucketName: 'chatserver-upload',
   // google api key，需要 map 取得座標地址權限
-  googleApiKey: "AIzaSyCimtHXyW8GfZ50Vx_YcFFmaBu7G2Wm2cw",
-  // app name，顯示在聊天列表上方
-  appName: "IMKit Demo",
+  googleApiKey: 'AIzaSyCimtHXyW8GfZ50Vx_YcFFmaBu7G2Wm2cw',
+  // app logo，顯示在聊天列表上方，appLogo 及 appName 都填時，logo在左邊
+  appLogo: 'https://i.imgur.com/gchEcBi.png',
+  // app name，顯示在聊天列表上方，appLogo 及 appName 都填時，name在右邊
+  appName: '',
   // 語系 'zh-tw' or 'en'
-  lang: "zh-tw",
+  lang: 'zh-tw',
   // 取得 avatar 需要的 headers
   avatarHeaders: [
     // {
@@ -38,6 +40,16 @@ var config = {
     //   value: 'testStable'
     // }
   ],
+  // 下逮檔案時要帶的 headers
+  downloadFileHeaders: [
+    // {
+    //   name: 'Authorization',
+    //   // 'variable' or 'stable'
+    //   type: 'variable',
+    //   // 變數名稱或固定的值
+    //   value: 'token'
+    // }
+  ],
   layout: {
     // 是否顯示左側列表
     list: true,
@@ -53,26 +65,26 @@ var config = {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送表情符號"
+        text: '傳送表情符號'
       },
       // 貼圖
       sticker: {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送貼圖"
+        text: '傳送貼圖'
       },
       // 圖片
       image: {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送圖片",
+        text: '傳送圖片',
         extra: {
           // 限制檔案格式
-          accept: ["image/png", "image/jpeg"],
+          accept: ['image/png', 'image/jpeg'],
           // 限制檔案大小 (MB)
-          limitSize: 5,
+          limitSize: 10,
           // 縮圖的最大寬高 (px)
           thumbnailSize: 1500
         }
@@ -82,12 +94,12 @@ var config = {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送影片",
+        text: '傳送影片',
         extra: {
           // 限制檔案格式
-          accept: ["video/mp4", "video/quicktime"],
+          accept: ['video/mp4', 'video/quicktime'],
           // 限制檔案大小 (MB)
-          limitSize: 5,
+          limitSize: 10,
           // 縮圖的最大寬高 (px)
           thumbnailSize: 1500
         }
@@ -97,12 +109,12 @@ var config = {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送檔案",
+        text: '傳送檔案',
         extra: {
           // 限制檔案格式
-          accept: ["application/pdf"],
+          accept: ['application/pdf'],
           // 限制檔案大小 (MB)
-          limitSize: 5
+          limitSize: 10
         }
       },
       // 錄音
@@ -110,7 +122,7 @@ var config = {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送語音",
+        text: '傳送語音',
         extra: {
           // 限制錄音秒數
           limitSeconds: 60
@@ -121,17 +133,19 @@ var config = {
         // 是否啟用
         enable: true,
         // 描述文字
-        text: "傳送位置"
+        text: '傳送位置'
       }
     },
     // 聊天按鈕顯示位置 'bottom' or 'right'
-    actionsPosition: "bottom",
+    actionsPosition: 'bottom',
     // 限制文字長度
     limitTextLength: 100,
     // 圖片/影片檢視氣關閉方式，
     // 'close'：右上方叉叉
     // 'back'：左上方返回箭頭
-    sliderReturnMode: "close",
+    sliderReturnMode: 'close',
+    // 爬 url meta 時，是否使用異步讀取
+    asyncUrlPreview: true,
     // 自訂訊息框顏色，顏色格式：'#123456' 或 'rgba(12, 34, 56, 0.5)'
     colors: {
       // 自己發送的訊息
@@ -161,7 +175,9 @@ var config = {
     // 是否顯示已讀
     readReceipt: true,
     // 是否開啟回覆功能
-    reply: true
+    reply: true,
+    // 是否開啟轉傳功能
+    forward: true
   },
   // 左側聊天列表設定
   list: {
@@ -172,8 +188,8 @@ var config = {
       enable: true,
       // 登出事件
       event: function() {
-        localStorage.removeItem("client");
-        document.location.href = "demo";
+        localStorage.removeItem('IMKit-token');
+        document.location.href = 'demo';
       }
     },
     createRoom: true
@@ -201,6 +217,22 @@ var config = {
       invite: true
     }
   },
+  // 事件們
+  events: {
+    // 是否執行開啟聊天的預設事件
+    onSetRoomActiveDefault: true,
+    // 開啟聊天室時觸發
+    onSetRoomActive: null,
+    // call api 失敗時的處理
+    onAjaxError: function(error) {
+      if (error.RC === 401) {
+        alert(error.RM);
+        window.location.href = '../demo';
+      }
+    }
+  },
+  // 若無設定 defaultRoom，是否自動進入列表第一個房間
+  autoEnterRoom: true,
   // 開啟聊天室後進入的房間 (room id)
   defaultRoom: null,
   // 建立新房間可設定的資訊
@@ -214,14 +246,18 @@ var config = {
     // 是否可設定房間圖片
     cover: true
   },
+  // 若為 true ，收到訊息時，無視聊天室靜音狀態，不發出任何提示音
+  alwaysMute: false,
+  // 收到訊息時是否要更改 title
+  changeTitle: true,
   // 推播設定 (Firebase Cloud Messaging Config)
   // 若不使用推播，則填 null
   FCMConfig: {
-    apiKey: "AIzaSyDH6fgpRFaH7vIqAcGQi48wgvNf8BJ9q1I",
-    authDomain: "fir-chat-server.firebaseapp.com",
-    databaseURL: "https://fir-chat-server.firebaseio.com",
-    projectId: "fir-chat-server",
-    storageBucket: "fir-chat-server.appspot.com",
-    messagingSenderId: "970263218499"
+    apiKey: 'AIzaSyDH6fgpRFaH7vIqAcGQi48wgvNf8BJ9q1I',
+    authDomain: 'fir-chat-server.firebaseapp.com',
+    databaseURL: 'https://fir-chat-server.firebaseio.com',
+    projectId: 'fir-chat-server',
+    storageBucket: 'fir-chat-server.appspot.com',
+    messagingSenderId: '970263218499'
   }
 };
