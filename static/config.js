@@ -2,17 +2,17 @@ var config = {
   // 是否開啟 debug
   debug: false,
   // chat server 位置
-  domain: 'https://chat.fangho.com',
+  domain: 'https://atuim.gamania.com',
   // auth server 位置
-  authBase: 'https://auth.imkit.io',
+  authBase: 'https://atuim.gamania.com/auth',
   // 登入的 chat user id，與 token 擇一使用
   authClientId: '',
   // 取得 url 預覽內容的 api 網址
   urlPreviewApi: 'https://chatkit.co/url',
   // chat server clientkey
-  clientKey: 'fangho_imkit_0412_2018_001_clientkey',
+  clientKey: 'gamania_imkit_1001_2018_001_clientkey',
   // chat user token，與 authClientId 擇一使用
-  token: '',
+  token: 'U2FsdGVkX18imi2caWyydDAPDUMqQIoDXG1rrrSTGgb/P7ymuO7xRSKIT0ks3nZR1xBoKp/qi7grSyzR1BJBg1j1HaRL25MKxsj+gGvwBQ4=',
   // S3 bucketName
   bucketName: 'chatserver-upload',
   // google api key，需要 map 取得座標地址權限
